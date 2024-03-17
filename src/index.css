@@ -15,10 +15,10 @@
   cursor: url('./assets/icons/pointer (3).png') 15 10, auto;
 }
 
-input, textarea,.form-check-input, .form-control[type=file]:not(:disabled):not([readonly]), button, [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+input, textarea,.form-check-input, .form-control[type=file]:not(:disabled):not([readonly]), button, [type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled),a{
   cursor: url('./assets/icons/click (2).png') 15 15, auto;
 }
 
-input:active, textarea:active,.form-check-input:active, .form-control[type=file]:not(:disabled):not([readonly]):active, button:active,[type=button]:not(:disabled):active, [type=reset]:not(:disabled):active, [type=submit]:not(:disabled):active, button:not(:disabled):active {
+input:active, textarea:active,.form-check-input:active, .form-control[type=file]:not(:disabled):not([readonly]):active, button:active,[type=button]:not(:disabled):active, [type=reset]:not(:disabled):active, [type=submit]:not(:disabled):active, button:not(:disabled):active, a:active {
   cursor: url('./assets/icons/click2 (2).png') 15 15, auto;
 }
