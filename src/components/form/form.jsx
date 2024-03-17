@@ -50,8 +50,13 @@ const CustomForm = (props) => {
         }
     }
 
-    const sendData = () => {
-        alert(JSON.stringify(data))
+    const sendData = (e) => {
+        e.preventDefault();
+        var form = document.querySelectorAll('.needs-validation')[0];
+        form.classList.add('was-validated')
+        if (form.checkValidity()) {
+            alert(JSON.stringify(data))
+        }
     }
 
     // useEffect(() => {
@@ -160,41 +165,55 @@ const CustomForm = (props) => {
             <div className="col-12 col-sm-9 col-md-5 mt-3 mb-5 mx-auto">
                 <fieldset className="border border-light rounded p-3">
                     {readOnlyProp ? <legend>Edit giveaway</legend> : <legend>Create giveaway</legend>}
-                    <div id="reactSignUpForm" className="px-2">
-                        <div className="mb-3">
-                            <label htmlFor="name" className="form-label">Name</label>
-                            <input type="text" className="form-control" id="title" onChange={handleInput} readOnly={readOnlyProp} value={data.title} />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="description" className="form-label">Description</label>
-                            <textarea className="form-control" id="description" rows="3" onChange={handleInput} readOnly={readOnlyProp} value={data.description}></textarea>
-                        </div>
+                    <form class="needs-validation" novalidate>
+                        <div id="reactSignUpForm" className="px-2">
+                            <div className="mb-3">
+                                <label htmlFor="name" className="form-label">Name</label>
+                                <input type="text" className="form-control" id="title" onChange={handleInput} readOnly={readOnlyProp} value={data.title} required />
+                                <div class="invalid-feedback">
+                                    Fill out this field
+                                </div>
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="description" className="form-label">Description</label>
+                                <textarea className="form-control" id="description" rows="3" onChange={handleInput} readOnly={readOnlyProp} value={data.description} required></textarea>
+                                <div class="invalid-feedback">
+                                    Fill out this field
+                                </div>
+                            </div>
+                            {!readOnlyProp && <div className="mb-3">
+                                <label htmlFor="avatar" className="form-label">Image</label>
+                                <input className="form-control" type="file" id="image" name="avatar" accept="image/png, image/jpeg, image/gif" onChange={handleImageInput} readOnly={readOnlyProp} />
+                            </div>}
+                            {data.image && <div className="mb-3">
+                                <img id="blah" src={data.image} alt="your image" style={{ width: '100%' }} />
+                            </div>}
 
-                        {!readOnlyProp && <div className="mb-3">
-                            <label htmlFor="avatar" className="form-label">Image</label>
-                            <input className="form-control" type="file" id="image" name="avatar" accept="image/png, image/jpeg, image/gif" onChange={handleImageInput} readOnly={readOnlyProp} />
-                        </div>}
-                        {data.image && <div className="mb-3">
-                            <img id="blah" src={data.image} alt="your image" style={{ width: '100%' }} />
-                        </div>}
+                            <div className="mb-3">
+                                <label htmlFor="start_date" className="form-label">Start date</label>
+                                <input className="form-control" type="date" id="start_date" onChange={handleInput} readOnly={readOnlyProp} value={data.start_date} required />
+                                <div class="invalid-feedback">
+                                    Fill out this field
+                                </div>
+                                <label htmlFor="finish_date" className="form-label">Finish date</label>
+                                <input className="form-control" type="date" min={data.start_date} id='finish_date' onChange={handleInput} readOnly={readOnlyProp} value={data.finish_date} required />
+                                <div class="invalid-feedback">
+                                    Fill out this field
+                                </div>
+                            </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="start_date" className="form-label">Start date</label>
-                            <input className="form-control" type="date" id="start_date" onChange={handleInput} readOnly={readOnlyProp} value={data.start_date} />
-                            <label htmlFor="finish_date" className="form-label">Finish date</label>
-                            <input className="form-control" type="date" min={data.start_date} id='finish_date' onChange={handleInput} readOnly={readOnlyProp} value={data.finish_date} />
-                        </div>
-
-                        <div className="mb-3">
-                            <label htmlFor="start_date" className="form-label">Giveaway state</label>
-                            <div className="form-check form-switch">
-                                <input className="form-check-input" type="checkbox" id="state" disabled={readOnlyProp} onChange={handleCheckBoxInput} />
-                                <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Open</label>
+                            <div className="mb-3">
+                                <label htmlFor="start_date" className="form-label">Giveaway state</label>
+                                <div className="form-check form-switch">
+                                    <input className="form-check-input" type="checkbox" id="state" disabled={readOnlyProp} onChange={handleCheckBoxInput} />
+                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Open</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    {!readOnlyProp && <button type="button" className="btn btn-success" onClick={sendData}>Create</button>}
+                        {!readOnlyProp && <button type="submit" className="btn btn-success" onClick={sendData}>Create</button>}
+                    </form>
+
                 </fieldset>
             </div>
 
