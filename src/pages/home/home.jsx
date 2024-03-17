@@ -14,7 +14,8 @@ const Home = () => {
                         description: 'Desc',
                         image: '',
                     }
-                }></CustomForm>
+                    
+                } mode="Create"></CustomForm>
             </div>
         </>
     )

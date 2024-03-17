@@ -164,7 +164,7 @@ const CustomForm = (props) => {
         <>
             <div className="col-12 col-sm-9 col-md-5 mt-3 mb-5 mx-auto">
                 <fieldset className="border border-light rounded p-3">
-                    {readOnlyProp ? <legend>Edit giveaway</legend> : <legend>Create giveaway</legend>}
+                   <legend>{props.mode} giveaway</legend>
                     <form class="needs-validation" novalidate>
                         <div id="reactSignUpForm" className="px-2">
                             <div className="mb-3">
