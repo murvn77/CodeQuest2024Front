@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import Navbar from '../components/navbar/Navbar';
 import NvRes from '../components/navbar/NvRes';
 import Footer from '../components/footer/Footer';
-import CookieConsentBanner from '../components/cookies/cookies'; // Importa el componente CookieConsentBanner
 import './layout.css';
 
 function Layout({ children }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const location = useLocation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -47,12 +43,6 @@ function Layout({ children }) {
   const handleLogout = () => {
     sessionStorage.removeItem('sesion');
     setIsLoggedIn(false);
-  };
-
-  // Función para manejar la aceptación de cookies
-  const handleCookieAccept = () => {
-    localStorage.setItem('cookieAccepted', 'true');
-    setCookieAccepted(true);
   };
 
   return (
