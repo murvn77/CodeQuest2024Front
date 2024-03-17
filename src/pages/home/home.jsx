@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <>
             <div>
-                <CustomForm readOnlyProp={true} data={
+                <CustomForm readOnlyProp={false} data={
                     {
                         start_date: '2024-03-17',
                         finish_date: '2024-03-18',

@@ -5,16 +5,17 @@ import './form.css'
 // import Swal from 'sweetalert2';
 
 const CustomForm = (props) => {
-
-    const readOnlyProp = props.readOnlyProp || true;
+    console.log(props)
+    const readOnlyProp = props.readOnlyProp;
     var initial_data = {
         start_date: '',
         finish_date: '',
         title: '',
-        description:'',
-        image: ''
+        description: '',
+        image: '',
+        state: ''
     }
-    if(props.data){
+    if (readOnlyProp && props.data) {
         initial_data = props.data;
     }
     const [data, setData] = useState(initial_data);
@@ -22,20 +23,28 @@ const CustomForm = (props) => {
     const handleInput = (e) => {
         console.log(e)
         let input = e.target.id;
-        console.log(input)
-        setData({...data,
-            [input]: e.target.value 
+        setData({
+            ...data,
+            [input]: e.target.value
+        })
+    }
+
+    const handleCheckBoxInput = (e) => {
+        let input = e.target.id;
+        setData({
+            ...data,
+            [input]: e.target.checked
         })
     }
 
     const handleImageInput = (e) => {
-        console.log(e)
         var reader = new FileReader();
         reader.readAsDataURL(e.nativeEvent.srcElement.files[0]);
         console.log(reader)
-        reader.onloadend = function() {
+        reader.onloadend = function () {
             let input = e.target.id;
-            setData({...data,
+            setData({
+                ...data,
                 [input]: reader.result
             })
         }
@@ -154,7 +163,7 @@ const CustomForm = (props) => {
                     <div id="reactSignUpForm" className="px-2">
                         <div className="mb-3">
                             <label htmlFor="name" className="form-label">Name</label>
-                            <input type="text" className="form-control" id="name" onChange={handleInput} readOnly={readOnlyProp} value={data.title}/>
+                            <input type="text" className="form-control" id="title" onChange={handleInput} readOnly={readOnlyProp} value={data.title} />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="description" className="form-label">Description</label>
@@ -163,19 +172,26 @@ const CustomForm = (props) => {
 
                         {!readOnlyProp && <div className="mb-3">
                             <label htmlFor="avatar" className="form-label">Image</label>
-                            <input className="form-control" type="file" id="image" name="avatar" accept="image/png, image/jpeg, image/gif" onChange={handleImageInput} readOnly={readOnlyProp}/>
+                            <input className="form-control" type="file" id="image" name="avatar" accept="image/png, image/jpeg, image/gif" onChange={handleImageInput} readOnly={readOnlyProp} />
                         </div>}
-                        {console.log(data.image)}
                         {data.image && <div className="mb-3">
                             <label htmlFor="avatar" className="form-label">Image</label>
-                            <img id="blah" src={data.image} alt="your image" style={{width: '100%'}}/>
+                            <img id="blah" src={data.image} alt="your image" style={{ width: '100%' }} />
                         </div>}
 
                         <div className="mb-3">
                             <label htmlFor="start_date" className="form-label">Start date</label>
-                            <input className="form-control" type="date" id="start_date" onChange={handleInput} readOnly={readOnlyProp} value={data.start_date}/>
+                            <input className="form-control" type="date" id="start_date" onChange={handleInput} readOnly={readOnlyProp} value={data.start_date} />
                             <label htmlFor="finish_date" className="form-label">Finish date</label>
-                            <input className="form-control" type="date" min={data.start_date} id='finish_date' onChange={handleInput} readOnly={readOnlyProp} value={data.finish_date}/>
+                            <input className="form-control" type="date" min={data.start_date} id='finish_date' onChange={handleInput} readOnly={readOnlyProp} value={data.finish_date} />
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="start_date" className="form-label">Giveaway state</label>
+                            <div className="form-check form-switch">
+                                <input className="form-check-input" type="checkbox" id="state" disabled={readOnlyProp} onChange={handleCheckBoxInput} />
+                                <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Open</label>
+                            </div>
                         </div>
                     </div>
 
