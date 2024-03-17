@@ -50,10 +50,46 @@ header {
     margin-left: 10px;
   }
   
-  .person-logo {
-    width: 20px;
-    height: 20px;
+  .logo-discord, #person-logo-in {
+    width: 30px;
+    height: 30px;
     margin-right: 5px;
+  }
+
+  .logo-discord{
+    position: relative;
+  }
+
+  .logo-discord::after{
+    content: "";
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0%;
+    margin: auto;
+    background-image: url('../../assets/icons/normal face.png');
+    background-position: center;
+    background-size: contain;
+  }
+
+  #logInBtn:focus .logo-discord::after{
+    content: "";
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0%;
+    margin: auto;
+    background-image: url('../../assets/icons/love.png');
+    background-position: center;
+    background-size: contain;
+  }
+
+  #person-logo-in{
+    border-radius: 50%;
   }
   
   .user-info {

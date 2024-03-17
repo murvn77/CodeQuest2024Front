@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CompanyIcon from '../../assets/icons/LOGOBLANCO.png';
 import PersonLogo from '../../assets/icons/perfil.png';
+import NormalFace from '../../assets/icons/normal face.png';
+import LoveFace from '../../assets/icons/love.png'
 import './Navbar.css'; // Asegúrate de tener este archivo CSS
 import Swal from 'sweetalert2';
 
@@ -65,12 +67,14 @@ const Navbar = () => {
         })
         .catch(console.error);
     }
-    if(window.location.pathname === "/principal"){
-      if (!sessionStorage.getItem("accessToken")){
+    if (window.location.pathname === "/principal") {
+      if (!sessionStorage.getItem("accessToken")) {
         fechtData();
+      }else{
+        setData(JSON.parse(sessionStorage.getItem("userData")));
       }
     }
-    
+
   }, []);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -92,7 +96,8 @@ const Navbar = () => {
 
   }, [sessionStorage.getItem('userData')]);
 
-  const handleLogin = () => {
+  const handleLogin = (button) => {
+    console.log(button)
     const clientId = '1218718388809891841';
     const redirectUri = encodeURIComponent('http://localhost:5173/principal');
     const scope = encodeURIComponent('identify guilds');
@@ -120,8 +125,8 @@ const Navbar = () => {
       </div>
       <div className="right">
         {!isLoggedIn ? (
-          <button onClick={handleLogin}>
-            <img src={PersonLogo} alt="Person Logo" className="person-logo" />
+          <button onClick={() => {handleLogin(this)}} id="logInBtn">
+            <i className="logo-discord"></i>
             Iniciar sesión
           </button>
         ) : (
@@ -129,7 +134,9 @@ const Navbar = () => {
             <div className="user-info">
               <span>{userName}</span>
             </div>
-            <button onClick={handleLogout}>Cerrar sesión</button>
+            <button onClick={handleLogout}>
+              <img src={`https://cdn.discordapp.com/avatars/${dataUsuario.id}/${dataUsuario.avatar}.jpg`} alt="Person Logo" id="person-logo-in" />
+              Cerrar sesión</button>
           </>
         )}
       </div>
