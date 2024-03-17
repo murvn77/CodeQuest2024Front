@@ -1,0 +1,33 @@
+@import url("../assets/styles/fonts.css");
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    font-family: var(--font-principal);
+}
+.main-project {
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.button-active {
+    background-color: #9D5929;
+    color: #FDFDFD;
+  }
+  
+  .button-inactive {
+    background-color: #CBC5C0;
+    color: #393939;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .pdf-responsive{
+      width: 100vw !important;
+    }
+  }
+  
+  

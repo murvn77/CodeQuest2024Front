@@ -1,0 +1,13 @@
+ @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Lora&display=swap');
+
+:root{
+    --font-headers: 'Instrument Serif', serif;
+    --font-principal: 'Lora', serif;     --font-headers: 'Instrument Serif', serif;
+    --font-size-1:1.5vw;
+    --font-size-2:0.9vw;
+    --font-size-3:.7vw;
+    --font-size-4:3.4vw;
+    --font-size-5:2.7vw;
+    --line-height:1.7rem;
+}
