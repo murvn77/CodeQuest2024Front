@@ -175,7 +175,6 @@ const CustomForm = (props) => {
                             <input className="form-control" type="file" id="image" name="avatar" accept="image/png, image/jpeg, image/gif" onChange={handleImageInput} readOnly={readOnlyProp} />
                         </div>}
                         {data.image && <div className="mb-3">
-                            <label htmlFor="avatar" className="form-label">Image</label>
                             <img id="blah" src={data.image} alt="your image" style={{ width: '100%' }} />
                         </div>}
 
