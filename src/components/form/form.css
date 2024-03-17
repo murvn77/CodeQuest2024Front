@@ -3,7 +3,6 @@ fieldset {
     border: 1px solid #666 !important;
     padding: 1px !important;
     color: white;
-    /*animation: pulsate 1.5s infinite alternate;*/
     border: 0.2rem solid #fff;
     border-radius: 2rem;
     padding: 0.4em;
@@ -15,24 +14,11 @@ fieldset {
         inset 0 0 1.3rem #bc13fe;
 }
 
-@keyframes pulsate {
-
-    100% {
-        text-shadow:
-            0 0 4px #fff,
-            0 0 11px #fff,
-            0 0 19px #fff,
-            0 0 40px #bc13fe,
-            0 0 80px #bc13fe,
-            0 0 90px #bc13fe,
-            0 0 100px #bc13fe,
-            0 0 150px #bc13fe;
-
-    }
-
-    0% {
-
-        text-shadow:
+legend {
+    padding: 1px 10px !important;
+    float: none;
+    width: auto;
+    text-shadow:
             0 0 2px #fff,
             0 0 4px #fff,
             0 0 6px #fff,
@@ -41,13 +27,4 @@ fieldset {
             0 0 55px #bc13fe,
             0 0 70px #bc13fe,
             0 0 80px #bc13fe;
-
-    }
-}
-
-legend {
-    padding: 1px 10px !important;
-    float: none;
-    width: auto;
-    animation: pulsate 1.5s infinite alternate;
 }
