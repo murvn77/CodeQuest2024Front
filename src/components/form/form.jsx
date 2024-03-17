@@ -5,7 +5,6 @@ import './form.css'
 // import Swal from 'sweetalert2';
 
 const CustomForm = (props) => {
-    console.log(props)
     const readOnlyProp = props.readOnlyProp;
     var initial_data = {
         start_date: '',
@@ -22,7 +21,6 @@ const CustomForm = (props) => {
     const [data, setData] = useState(initial_data);
 
     const handleInput = (e) => {
-        console.log(e)
         let input = e.target.id;
         setData({
             ...data,
@@ -41,7 +39,6 @@ const CustomForm = (props) => {
     const handleImageInput = (e) => {
         var reader = new FileReader();
         reader.readAsDataURL(e.nativeEvent.srcElement.files[0]);
-        console.log(reader)
         reader.onloadend = function () {
             let input = e.target.id;
             setData({
@@ -65,19 +62,19 @@ const CustomForm = (props) => {
             <div className="col-12 col-sm-9 col-md-5 mt-3 mb-5 mx-auto">
                 <fieldset className="border border-light rounded p-3">
                    <legend>{props.mode} giveaway</legend>
-                    <form class="needs-validation" novalidate>
+                    <form className="needs-validation" noValidate>
                         <div id="reactSignUpForm" className="px-2">
                             <div className="mb-3">
                                 <label htmlFor="name" className="form-label">Name</label>
                                 <input type="text" className="form-control" id="title" onChange={handleInput} readOnly={readOnlyProp} value={data.title} required />
-                                <div class="invalid-feedback">
+                                <div className="invalid-feedback">
                                     Fill out this field
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="description" className="form-label">Description</label>
                                 <textarea className="form-control" id="description" rows="3" onChange={handleInput} readOnly={readOnlyProp} value={data.description} required></textarea>
-                                <div class="invalid-feedback">
+                                <div className="invalid-feedback">
                                     Fill out this field
                                 </div>
                             </div>
@@ -92,19 +89,19 @@ const CustomForm = (props) => {
                             <div className="mb-3">
                                 <label htmlFor="start_date" className="form-label">Start date</label>
                                 <input className="form-control" type="date" id="start_date" onChange={handleInput} readOnly={readOnlyProp} value={data.start_date} required />
-                                <div class="invalid-feedback">
+                                <div className="invalid-feedback">
                                     Fill out this field
                                 </div>
                                 <label htmlFor="finish_date" className="form-label">Finish date</label>
                                 <input className="form-control" type="date" min={data.start_date} id='finish_date' onChange={handleInput} readOnly={readOnlyProp} value={data.finish_date} required />
-                                <div class="invalid-feedback">
+                                <div className="invalid-feedback">
                                     Fill out this field
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="description" className="form-label">Number of winners</label>
                                 <input className="form-control" type="number" min={1} id='winners' onChange={handleInput} readOnly={readOnlyProp} value={data.winners} required />
-                                <div class="invalid-feedback">
+                                <div className="invalid-feedback">
                                     Fill out this field
                                 </div>
                             </div>
