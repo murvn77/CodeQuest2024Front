@@ -1,0 +1,12 @@
+:root {
+    --clr-primary: #762f0b;
+    --clr-secondary: #9d5929;
+    --clr-terciary: #5e2609;
+    --clr-gold: #ba8120;
+    --clr-black:hsl(0, 0%, 19%);
+    --clr-darkgray:#626262;
+    --clr-gray:#cbc5c0;
+    --clr-lightgray:#f4f1ee;
+    --clr-white:#fdfdfd;
+
+  }
