@@ -8,74 +8,70 @@ import Swal from 'sweetalert2';
 const Navbar = () => {
 
   const [dataUsuario, setData] = useState({});
-    // const[servers, setServers] = useState({})
-    useEffect ( () => {
-        async function fechtData(){
-        console.log("haciendo peticion")
-        const code = new URLSearchParams(window.location.search).get('code');
-        const CLIENT_ID = '1218718388809891841';
-        const CLIENT_SECRET = 'NmMU9hIzlnC18bs3qToZDFAlxg6H1BF8';
-        let options = {
-            url: 'https://discord.com/api/oauth2/token',
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams({
-                'client_id': CLIENT_ID,
-                'client_secret': CLIENT_SECRET,
-                'grant_type': 'authorization_code',
-                'code': code,
-                'redirect_uri': 'http://localhost:5173/principal'
-            })
-        }
-        const data = await fetch('https://discord.com/api/v10/oauth2/token', options);
-        const response = await data.json();
-        console.log(response)
-        const accessToken = response.access_token;
-        const tokenType = response.token_type;
-        sessionStorage.setItem("tokenType",tokenType);
-        sessionStorage.setItem("accessToken",accessToken);
-        if (!accessToken) {
-            // window.location.href = '/';
-        }
-
-        fetch('https://discord.com/api/users/@me/guilds', {
-            headers: {
-                authorization: `${tokenType} ${accessToken}`,
-            },
+  useEffect(() => {
+    async function fechtData() {
+      console.log("haciendo peticion")
+      const code = new URLSearchParams(window.location.search).get('code');
+      const CLIENT_ID = '1218718388809891841';
+      const CLIENT_SECRET = 'NmMU9hIzlnC18bs3qToZDFAlxg6H1BF8';
+      let options = {
+        url: 'https://discord.com/api/oauth2/token',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          'client_id': CLIENT_ID,
+          'client_secret': CLIENT_SECRET,
+          'grant_type': 'authorization_code',
+          'code': code,
+          'redirect_uri': 'http://localhost:5173/principal'
         })
-            .then(result => result.json())
-            .then(response => {
-                console.log(response);
-            })
-            .catch(console.error);
+      }
+      const data = await fetch('https://discord.com/api/v10/oauth2/token', options);
+      const response = await data.json();
+      console.log(response)
+      const accessToken = response.access_token;
+      const tokenType = response.token_type;
+      sessionStorage.setItem("tokenType", tokenType);
+      sessionStorage.setItem("accessToken", accessToken);
+      if (!accessToken) {
+        // window.location.href = '/';
+      }
 
-        fetch('https://discord.com/api/users/@me', {
-            headers: {
-                authorization: `${tokenType} ${accessToken}`,
-            },
+      fetch('https://discord.com/api/users/@me/guilds', {
+        headers: {
+          authorization: `${tokenType} ${accessToken}`,
+        },
+      })
+        .then(result => result.json())
+        .then(response => {
+          console.log(response);
         })
-            .then(result => result.json())
-            .then(response => {
-                console.log(response);
-                const { username, discriminator, avatar, id } = response;
-                //set the welcome username string
-                setData(response);
-                sessionStorage.setItem('userData', JSON.stringify(response));
-                // document.getElementById('name').innerText = ` ${username}#${discriminator}`;
+        .catch(console.error);
 
-                // //set the avatar image by constructing a url to access discord's cdn
-                // document.getElementById("avatar").src = `https://cdn.discordapp.com/avatars/${id}/${avatar}.jpg`;
-            })
-            .catch(console.error);
-        }
-        console.log(sessionStorage.getItem("token"))
-        if(!sessionStorage.getItem("token") && sessionStorage.getItem("token")!==undefined){
-            console.log(sessionStorage.getItem("token"))
-            fechtData();
-        }
-        }, []);
+      fetch('https://discord.com/api/users/@me', {
+        headers: {
+          authorization: `${tokenType} ${accessToken}`,
+        },
+      })
+        .then(result => result.json())
+        .then(response => {
+          console.log(response);
+          const { username, discriminator, avatar, id } = response;
+          //set the welcome username string
+          setData(response);
+          sessionStorage.setItem('userData', JSON.stringify(response));
+        })
+        .catch(console.error);
+    }
+    if(window.location.pathname === "/principal"){
+      if (!sessionStorage.getItem("accessToken")){
+        fechtData();
+      }
+    }
+    
+  }, []);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
@@ -84,7 +80,7 @@ const Navbar = () => {
   useEffect(() => {
     const loggedInUserString = sessionStorage.getItem('userData');
 
-  
+
     if (!loggedInUserString) {
       setIsLoggedIn(false);
       setUserName('');
@@ -93,7 +89,7 @@ const Navbar = () => {
       setIsLoggedIn(true);
       setUserName(loggedInUser.name);
     }
-  
+
   }, [sessionStorage.getItem('userData')]);
 
   const handleLogin = () => {

@@ -9,7 +9,6 @@ import './layout.css';
 function Layout({ children }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [cookieAccepted, setCookieAccepted] = useState(false); // Estado para rastrear la aceptación de cookies
 
   const location = useLocation();
 
@@ -19,12 +18,6 @@ function Layout({ children }) {
     };
 
     window.addEventListener('resize', handleResize);
-
-    // Verificar si el usuario ya ha aceptado las cookies al cargar el componente
-    const cookieAccepted = localStorage.getItem('cookieAccepted');
-    if (cookieAccepted === 'true') {
-      setCookieAccepted(true);
-    }
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -64,7 +57,6 @@ function Layout({ children }) {
 
   return (
     <div className='layout' style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-      {!cookieAccepted && <CookieConsentBanner onAccept={handleCookieAccept} />} {/* Mostrar el banner de consentimiento solo si no se han aceptado las cookies */}
       {windowWidth < 800 ? (
         <NvRes />
       ) : (
