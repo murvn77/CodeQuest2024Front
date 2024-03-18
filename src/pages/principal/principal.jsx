@@ -29,7 +29,7 @@ const Principal = () => {
             <div className="container">
                 <h1 className="text-center my-5 text-white" style={{ fontWeight: '600' }}>Sorteos</h1>
                 <div className="d-flex justify-content-end mb-3">
-                    {(globalState.userData && ("id_administrator" in globalState.userData)) && <button className="btn btn-primary" onClick={handleOpenAddModal}>
+                    {(globalState.userData && Object.keys(globalState.userData).length == 3) && <button className="btn btn-primary" onClick={handleOpenAddModal}>
                         <FaPlus /> Agregar Sorteo
                     </button>}
 

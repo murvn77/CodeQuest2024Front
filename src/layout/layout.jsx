@@ -50,41 +50,46 @@ function Layout({ children }) {
   useEffect(() => {
     async function fechtData() {
       const code = new URLSearchParams(window.location.search).get('code');
-      const CLIENT_ID = '1218718388809891841';
-      const CLIENT_SECRET = 'NmMU9hIzlnC18bs3qToZDFAlxg6H1BF8';
       let options = {
         method: 'GET'
       }
-      setGlobalState({
-        isLoggedIn: true,
-        userData: {
-          username: 'prueba'
-        }
-      })
+      
       try {
         const data = await fetch('https://codequest2024back.onrender.com/api/auth/discord?code=' + code, options);
-        console.log(await data.json())
         if (data.status == "200") {
           const response = await data.json();
-
-          // setData(response);
-          // setIsLoggedIn(true);
+          console.log(response)
           setGlobalState({
             isLoggedIn: true,
             userData: response
           })
-          //sessionStorage.setItem("userData", JSON.stringify(response));
+          sessionStorage.setItem("userData", JSON.stringify(response));
+          sessionStorage.setItem("isLoggedIn", true);
         } else {
-          //window.location.href = '/';
+          window.location.href = '/';
         }
       } catch (exception) {
         console.log(exception);
-        //window.location.href = '/';
+        window.location.href = '/';
       }
     }
 
     if (window.location.pathname === "/principal") {
-      fechtData();
+      if (!sessionStorage.getItem("userData")) {
+        fechtData();
+      }else{
+        setGlobalState({
+          isLoggedIn: sessionStorage.getItem("isLoggedIn"),
+          userData:JSON.parse(sessionStorage.getItem("userData"))
+        });
+      }
+    }else{
+      if (sessionStorage.getItem("userData")) {
+        setGlobalState({
+          isLoggedIn: true,
+          userData:JSON.parse(sessionStorage.getItem("userData"))
+        });
+      }
     }
 
   }, []);
