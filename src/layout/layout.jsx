@@ -66,11 +66,11 @@ function Layout({ children }) {
           sessionStorage.setItem("userData", JSON.stringify(response));
           sessionStorage.setItem("isLoggedIn", true);
         } else {
-          window.location.href = '/';
+          //window.location.href = '/';
         }
       } catch (exception) {
         console.log(exception);
-        window.location.href = '/';
+        //window.location.href = '/';
       }
     }
 
