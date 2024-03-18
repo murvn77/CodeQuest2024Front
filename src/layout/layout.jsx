@@ -38,7 +38,8 @@ function Layout({ children }) {
       ...globalState,
       isLoggedIn: false
     })
-    navigate('/', { replace: true });
+    console.log('logged out');
+    navigate('https://codequest2024front.onrender.com', { replace: true });
     Swal.fire({
       icon: 'success',
       title: '¡Logout!',
