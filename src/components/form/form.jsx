@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './form.css'
-// import { useNavigate } from 'react-router-dom';
-// import './Navbar.css'; // Asegúrate de tener este archivo CSS
-// import Swal from 'sweetalert2';
+import './form.css';
+import Swal from 'sweetalert2';
 
 const CustomForm = (props) => {
     const readOnlyProp = props.readOnlyProp;
@@ -48,15 +46,79 @@ const CustomForm = (props) => {
         }
     }
 
-    const sendData = (e) => {
+    
+    const sendData = async (e) => {
         e.preventDefault();
         var form = document.querySelectorAll('.needs-validation')[0];
         form.classList.add('was-validated')
+        console.log(data.image);
         if (form.checkValidity()) {
-            alert(JSON.stringify(data))
+            try {
+                let admin = 'f0ade084-c287-477f-8b2c-6a68bc5d05b0';
+                if (props.mode === "Create") {
+                    // Realizar la petición POST para crear un nuevo giveaway
+                    const response = await fetch('https://codequest2024back.onrender.com/api/giveaway', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: data.title, // Cambiado de 'title' a 'name'
+                            description: data.description,
+                            initial_date: data.start_date,
+                            finish_date: data.finish_date,
+                            imagen: data.image, // Cambiado de 'image' a 'imagen'
+                            state: data.state,
+                            number_winners: data.winners, // Cambiado de 'winners' a 'number_winners'
+                            fk_id_administrator: admin
+                        })
+                    });
+                    if (response.ok) {
+                        // Mostrar mensaje de éxito
+                        Swal.fire('¡Éxito!', 'El giveaway se creó correctamente', 'success');
+                    } else {
+                        // Mostrar mensaje de error si la respuesta no es exitosa
+                        Swal.fire('Error', 'Hubo un problema al crear el giveaway', 'error');
+                    }
+    
+                    // Imprimir el contenido del objeto JSON devuelto por response.json()
+                    const responseData = await response.json();
+                    console.log(responseData);
+                } else {
+                    // Realizar la petición PUT para actualizar el giveaway
+                    const response = await fetch(`https://codequest2024back.onrender.com/api/giveaway/${props.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: data.title, // Cambiado de 'title' a 'name'
+                            description: data.description,
+                            initial_date: data.start_date,
+                            finish_date: data.finish_date,
+                            imagen: data.image, // Cambiado de 'image' a 'imagen'
+                            state: data.state,
+                            number_winners: data.winners, // Cambiado de 'winners' a 'number_winners'
+                            fk_id_administrator: admin
+                        })
+                    });
+                    if (response.ok) {
+                        // Mostrar mensaje de éxito
+                        Swal.fire('¡Éxito!', 'El giveaway se actualizó correctamente', 'success');
+                    } else {
+                        // Mostrar mensaje de error si la respuesta no es exitosa
+                        Swal.fire('Error', 'Hubo un problema al actualizar el giveaway', 'error');
+                    }
+                }
+            } catch (error) {
+                // Capturar y mostrar cualquier error que ocurra durante la solicitud
+                console.error('Error:', error);
+                Swal.fire('Error', 'Hubo un problema al realizar la solicitud', 'error');
+            }
         }
-    }
-
+    };
+    
+    
     return (
         <>
             <div className="col-12 col-sm-9 col-md-5 mt-3 mb-5 mx-auto">
