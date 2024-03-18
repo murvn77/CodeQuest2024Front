@@ -12,25 +12,31 @@ const Navbar = () => {
   const [dataUsuario, setData] = useState({});
   useEffect(() => {
     async function fechtData() {
-      console.log("haciendo peticion")
       const code = new URLSearchParams(window.location.search).get('code');
-      const CLIENT_ID = '1218718388809891841';
-      const CLIENT_SECRET = 'NmMU9hIzlnC18bs3qToZDFAlxg6H1BF8';
+      // const CLIENT_ID = '1218718388809891841';
+      // const CLIENT_SECRET = 'NmMU9hIzlnC18bs3qToZDFAlxg6H1BF8';
+      // let options = {
+      //   url: 'https://discord.com/api/oauth2/token',
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   },
+      //   body: new URLSearchParams({
+      //     'client_id': CLIENT_ID,
+      //     'client_secret': CLIENT_SECRET,
+      //     'grant_type': 'authorization_code',
+      //     'code': code,
+      //     'redirect_uri': 'http://localhost:5173/principal'
+      //   })
+      // }
       let options = {
-        url: 'https://discord.com/api/oauth2/token',
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-          'client_id': CLIENT_ID,
-          'client_secret': CLIENT_SECRET,
-          'grant_type': 'authorization_code',
-          'code': code,
-          'redirect_uri': 'http://localhost:5173/principal'
-        })
+        }
       }
-      const data = await fetch('https://discord.com/api/v10/oauth2/token', options);
+      const data = await fetch('https://codequest2024back.onrender.com/api/auth/discord?code='+code, options);
+      console.log(data);
       const response = await data.json();
       console.log(response)
       const accessToken = response.access_token;
