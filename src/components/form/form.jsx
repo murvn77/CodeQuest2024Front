@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './form.css';
 import Swal from 'sweetalert2';
+import GlobalContext from '../../store/Context';
 
 const CustomForm = (props) => {
     const readOnlyProp = props.readOnlyProp;
     const [data, setData] = useState({});
+    const {globalState} = useContext(GlobalContext);
     useEffect(() => {
         var initial_data = {
             initial_date: '',
@@ -60,7 +62,9 @@ const CustomForm = (props) => {
         console.log(data.image);
         if (form.checkValidity()) {
             try {
-                let admin = 'f0ade084-c287-477f-8b2c-6a68bc5d05b0';
+                let admin= globalState.userData.id_administrator;
+                console.log(admin);
+                console.log(globalState)
                 if (props.mode === "Create") {
                     // Realizar la petición POST para crear un nuevo giveaway
                     const response = await fetch('https://codequest2024back.onrender.com/api/giveaway', {
@@ -178,7 +182,7 @@ const CustomForm = (props) => {
                             <div className="mb-3">
                                 <label htmlFor="initial_date" className="form-label">Estado de sorteo</label>
                                 <div className="form-check form-switch">
-                                    <input className="form-check-input" type="checkbox" id="state" disabled={readOnlyProp} value={data.state} onChange={handleCheckBoxInput} />
+                                    <input className="form-check-input" type="checkbox" id="state" disabled={readOnlyProp} checked={data.state} onChange={handleCheckBoxInput} />
                                     <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Abierto</label>
                                 </div>
                             </div>

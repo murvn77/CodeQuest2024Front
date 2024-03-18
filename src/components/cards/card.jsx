@@ -124,7 +124,7 @@ const Card = ({ card, refetch }) => {
             <p className="card-text">{card.finish_date}</p>
           </div>
           {/* {(globalState.userData && Object.keys(globalState.userData).length > 4) && <button onClick={() => {register(card.id_giveaway)}}>Register</button>} */}
-          {(globalState.userData && Object.keys(globalState.userData).length > 4 && !giveaways.find((element) => element.id_giveaway == card.id_giveaway)) && <button onClick={() => { register(card.id_giveaway) }} className="btn btn-success">Register</button>}
+          {(globalState.userData && Object.keys(globalState.userData).length > 0 && !giveaways.find((element) => element.id_giveaway == card.id_giveaway)) && <button onClick={() => { register(card.id_giveaway) }} className="btn btn-success">Register</button>}
         </div>
       </div>
       {modalShow && (
