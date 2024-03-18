@@ -81,7 +81,7 @@ const Principal = () => {
                     </button>}
 
                 </div>
-                <CardGrid cards={concursos} />
+                <CardGrid cards={concursos} refetch={fetchConcursos}/>
             </div>
             {modalShow && (
                 <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>

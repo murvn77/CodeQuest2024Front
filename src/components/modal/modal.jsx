@@ -41,6 +41,7 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, ganadores, id, jugarS
       if (response.ok) {
         Swal.fire('¡Éxito!', 'El concurso se eliminó correctamente', 'success');
         onHide();
+       
         const responseData = await response.json();
         console.log(responseData);
       } else {
@@ -63,6 +64,8 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, ganadores, id, jugarS
       });
       if (response.ok) {
         Swal.fire('¡Éxito!', 'El concurso se actualizó correctamente', 'success');
+        onHide();
+        
       } else {
         Swal.fire('Error', 'Hubo un problema al actualizar el concurso', 'error');
       }

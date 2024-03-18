@@ -4,7 +4,7 @@ import GlobalContext from '../../store/Context';
 import './card.css';
 import Swal from 'sweetalert2';
 
-const Card = ({ card }) => {
+const Card = ({ card, refetch }) => {
   const [modalShow, setModalShow] = useState(false);
   const [isAgregarCard, setIsAgregarCard] = useState(card.name === 'Agregar');
   const { globalState } = useContext(GlobalContext);
@@ -19,6 +19,7 @@ const Card = ({ card }) => {
 
   const handleCloseModal = () => {
     setModalShow(false);
+    refetch();
   };
 
   const eliminarConcurso = () => {
@@ -42,7 +43,7 @@ const Card = ({ card }) => {
     }
      
     Swal.fire('¡Éxito!', res, 'success');
-    setCountRegisters(countRegisters + 1)
+    setCountRegisters(countRegisters + 1);
     console.log(response.map((winner) => winner.username))
     console.log('Jugar sorteo');
   };
@@ -134,18 +135,18 @@ const Card = ({ card }) => {
           ganadores={card.number_winners}
           id={card.id_giveaway}
           jugarSorteo={() => { jugarSorteo(card.id_giveaway) }}
-          isAgregarCard={isAgregarCard} // pasa el estado de isAgregarCard al modal
+          isAgregarCard={isAgregarCard}
         />
       )}
     </>
   );
 };
 
-const CardGrid = ({ cards }) => {
+const CardGrid = ({ cards, refetch }) => {
   return (
     <div className="row row-cols-1 row-cols-md-3 g-3">
       {cards.map((card, index) => (
-        <Card key={index} card={card} />
+        <Card key={index} card={card} refetch={refetch}/>
       ))}
     </div>
   );
