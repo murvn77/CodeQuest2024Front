@@ -26,10 +26,10 @@ const Navbar = (props) => {
         ) : (
           <>
             <div className="user-info">
-              <span>Bienvenido {globalState.userData.name}</span>
+              <span>Bienvenido {globalState.userData.username}</span>
             </div>
             <button onClick={props.handleLogout}>
-              <img src={`https://cdn.discordapp.com/avatars/${globalState.userData.discord_id}/${globalState.userData.avatar}.jpg`} alt="Person Logo" id="person-logo-in" />
+              <img src={`https://cdn.discordapp.com/avatars/${globalState.userData.id}/${globalState.userData.avatar}.jpg`} alt="Person Logo" id="person-logo-in" />
               Cerrar sesión</button>
           </>
         )}
