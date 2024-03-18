@@ -5,7 +5,7 @@ import GlobalContext from "../../store/Context";
 
 const Principal = () => {
     const [modalShow, setModalShow] = useState(false);
-    const globalData = useContext(GlobalContext);
+    const { globalState } = useContext(GlobalContext);
     const handleOpenAddModal = () => {
         setModalShow(true);
     };
@@ -15,34 +15,24 @@ const Principal = () => {
     };
 
     const cards = [
-        {id:'1', estado:'Abierto', name: 'Card 1', description: 'Description for Card 1Description for Card 1Description for Card 1Description for Card 1Description for Card 1Description for Card 1Description for Card 1Description for Card 1', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio:'20-02-2024', FechaFin:'21-02-2024' },
-        {id:'2', estado:'activo', name: 'Card 2', description: 'Description for Card 2', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio:'20-02-2024', FechaFin:'21-02-2024' },
-        {id:'3', estado:'activo', name: 'Card 3', description: 'Description for Card 3', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio:'20-02-2024', FechaFin:'21-02-2024' },
-        {id:'4', estado:'activo', name: 'Card 1', description: 'Description for Card 1', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio:'20-02-2024', FechaFin:'21-02-2024' },
-        {id:'5', estado:'activo', name: 'Card 2', description: 'Description for Card 2', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio:'20-02-2024', FechaFin:'21-02-2024' },
-        {id:'6', estado:'activo', name: 'Card 3', description: 'Description for Card 3', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio:'20-02-2024', FechaFin:'21-02-2024' },
+        { id: '1', estado: 'Abierto', name: 'Card 1', description: 'Description for Card 1Description for Card 1Description for Card 1Description for Card 1Description for Card 1Description for Card 1Description for Card 1Description for Card 1', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio: '20-02-2024', FechaFin: '21-02-2024' },
+        { id: '2', estado: 'activo', name: 'Card 2', description: 'Description for Card 2', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio: '20-02-2024', FechaFin: '21-02-2024' },
+        { id: '3', estado: 'activo', name: 'Card 3', description: 'Description for Card 3', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio: '20-02-2024', FechaFin: '21-02-2024' },
+        { id: '4', estado: 'activo', name: 'Card 1', description: 'Description for Card 1', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio: '20-02-2024', FechaFin: '21-02-2024' },
+        { id: '5', estado: 'activo', name: 'Card 2', description: 'Description for Card 2', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio: '20-02-2024', FechaFin: '21-02-2024' },
+        { id: '6', estado: 'activo', name: 'Card 3', description: 'Description for Card 3', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio: '20-02-2024', FechaFin: '21-02-2024' },
         // Agrega más tarjetas si es necesario
     ];
     var userData = null;
-    useEffect(() => {
-        console.log(globalData)
-        // setTimeout(() => { 
-        //     console.log("Hola")
-        //     if(sessionStorage.getItem("userData")){
-        //         userData = JSON.parse(sessionStorage.getItem('userData')); 
-        //     }
-        //  }, 1000);        
-    },[])
-    
     return (
         <>
             <div className="container">
-                <h1 className="text-center my-5 text-white" style={{fontWeight:'600'}}>Sorteos</h1>
+                <h1 className="text-center my-5 text-white" style={{ fontWeight: '600' }}>Sorteos</h1>
                 <div className="d-flex justify-content-end mb-3">
-                    {(userData && ("id_administrator" in userData)) && <button className="btn btn-primary" onClick={handleOpenAddModal}>
+                    {(globalState.userData && ("id_administrator" in globalState.userData)) && <button className="btn btn-primary" onClick={handleOpenAddModal}>
                         <FaPlus /> Agregar Sorteo
                     </button>}
-                    
+
                 </div>
                 <CardGrid cards={cards} />
             </div>
