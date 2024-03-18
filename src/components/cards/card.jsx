@@ -25,7 +25,25 @@ const Card = ({ card }) => {
     console.log('Eliminar concurso');
   };
 
-  const jugarSorteo = () => {
+  const jugarSorteo = async (id_giveaway) => {
+    const sweeper = await fetch('https://codequest2024back.onrender.com/api/giveaway-sweeper/generateWinners/giveaway/' + id_giveaway, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const response = await sweeper.json();
+    var ganadores = response.map((winner) => winner.username);
+    var res = "";
+    if(ganadores.length > 1){
+      res = "Los usuarios " + ganadores.join() + " han sido los ganadores del sorteo";
+    }else{
+      res = "El usuario " + ganadores[0] + " ha sido el ganador del sorteo";
+    }
+     
+    Swal.fire('¡Éxito!', res, 'success');
+    setCountRegisters(countRegisters + 1)
+    console.log(response.map((winner) => winner.username))
     console.log('Jugar sorteo');
   };
 
@@ -80,7 +98,7 @@ const Card = ({ card }) => {
       console.log(swepper_response)
       if (swepper_response.ok) {
         Swal.fire('¡Éxito!', 'Se registró al sorteo correctamente', 'success');
-        setCountRegisters(countRegisters+1)
+        setCountRegisters(countRegisters + 1)
       } else {
         Swal.fire('Error', 'Hubo un problema al crear el sweeper', 'error');
       }
@@ -91,8 +109,8 @@ const Card = ({ card }) => {
 
   return (
     <>
-    {console.log(giveaways)}
-    
+      {console.log(giveaways)}
+
       <div className="col-md-4 mb-3" onClick={handleCardClick}>
         <div className="tarjeta card h-100 rounded-1" style={{ background: '#0f0a1e', minWidth: '200px', minHeight: '250px', maxHeight: '400px' }} >
           <img src={card.image} className="card-img-top" alt={card.name} style={{ objectFit: 'fill', height: '60%' }} />
@@ -115,7 +133,7 @@ const Card = ({ card }) => {
           estado={card.state}
           ganadores={card.number_winners}
           id={card.id_giveaway}
-          jugarSorteo={jugarSorteo}
+          jugarSorteo={() => { jugarSorteo(card.id_giveaway) }}
           isAgregarCard={isAgregarCard} // pasa el estado de isAgregarCard al modal
         />
       )}

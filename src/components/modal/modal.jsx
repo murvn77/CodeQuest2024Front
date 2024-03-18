@@ -13,6 +13,7 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, ganadores, id, jugarS
         const response = await fetch(`https://codequest2024back.onrender.com/api/giveaway/${id}`);
         if (response.ok) {
           const data = await response.json();
+          console.log(data)
           setFormData(data);
         } else {
           Swal.fire('Error', 'Hubo un problema al obtener los datos del concurso', 'error');
@@ -107,7 +108,7 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, ganadores, id, jugarS
                 {formData.giveawaySweeper && formData.giveawaySweeper.length > 0 && (
 
                   formData.giveawaySweeper.map((participante, index) => (
-                    <tr key={index}>
+                    <tr key={index} className={participante.winner && 'winner'}>
                       <th scope='row'><img src={`https://cdn.discordapp.com/avatars/${participante.sweeper.id_discord}/${participante.sweeper.avatar}.jpg`} alt="Person Logo" id="person-logo-in" /></th>
                       <td>{participante.sweeper.id_discord}</td>
                       <td>{participante.sweeper.username}</td>
