@@ -71,8 +71,9 @@ function Layout({ children }) {
             title: "Oops...",
             text: "Parece que no estás en el servidor de DevTalles",
             footer: '<a href="https://discord.gg/yWhcxVva" target="_blank">Únete</a>'
+          }).then(() => {
+            window.location.href = '/';
           });
-          //window.location.href = '/';
         }
       } catch (exception) {
         console.log(exception);
@@ -81,8 +82,9 @@ function Layout({ children }) {
           title: "Oops...",
           text: "Parece que no estás en el servidor de DevTalles",
           footer: '<a href="https://discord.gg/yWhcxVva" target="_blank">Únete</a>'
+        }).then(() => {
+          window.location.href = '/';
         });
-        //window.location.href = '/';
       }
     }
 
