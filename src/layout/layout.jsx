@@ -66,10 +66,22 @@ function Layout({ children }) {
           sessionStorage.setItem("userData", JSON.stringify(response));
           sessionStorage.setItem("isLoggedIn", true);
         } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Parece que no estás en el servidor de DevTalles",
+            footer: '<a href="https://discord.gg/yWhcxVva" target="_blank">Únete</a>'
+          });
           //window.location.href = '/';
         }
       } catch (exception) {
         console.log(exception);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Parece que no estás en el servidor de DevTalles",
+          footer: '<a href="https://discord.gg/yWhcxVva" target="_blank">Únete</a>'
+        });
         //window.location.href = '/';
       }
     }
