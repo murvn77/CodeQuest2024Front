@@ -25,7 +25,7 @@ function Layout({ children }) {
   }, []);
 
   const handleLogin = () => {
-    const clientId = '1218718388809891841';
+    const clientId = '1216925942572650566';
     const redirectUri = encodeURIComponent('https://codequest2024front.onrender.com/principal');
     const scope = encodeURIComponent('identify guilds guilds.members.read');
     const authorizationUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=https://codequest2024front.onrender.com/principal&scope=guilds+identify+guilds.members.read`;
