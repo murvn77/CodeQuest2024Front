@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { FaPlus } from "react-icons/fa";
 import CardGrid from "../../components/cards/card";
+import GlobalContext from "../../store/Context";
 
 const Principal = () => {
     const [modalShow, setModalShow] = useState(false);
-
+    const globalData = useContext(GlobalContext);
     const handleOpenAddModal = () => {
         setModalShow(true);
     };
@@ -22,15 +23,26 @@ const Principal = () => {
         {id:'6', estado:'activo', name: 'Card 3', description: 'Description for Card 3', image: 'https://cdn-icons-png.flaticon.com/512/1078/1078454.png', FechaInicio:'20-02-2024', FechaFin:'21-02-2024' },
         // Agrega más tarjetas si es necesario
     ];
-
+    var userData = null;
+    useEffect(() => {
+        console.log(globalData)
+        // setTimeout(() => { 
+        //     console.log("Hola")
+        //     if(sessionStorage.getItem("userData")){
+        //         userData = JSON.parse(sessionStorage.getItem('userData')); 
+        //     }
+        //  }, 1000);        
+    },[])
+    
     return (
         <>
             <div className="container">
                 <h1 className="text-center my-5 text-white" style={{fontWeight:'600'}}>Sorteos</h1>
                 <div className="d-flex justify-content-end mb-3">
-                    <button className="btn btn-primary" onClick={handleOpenAddModal}>
+                    {(userData && ("id_administrator" in userData)) && <button className="btn btn-primary" onClick={handleOpenAddModal}>
                         <FaPlus /> Agregar Sorteo
-                    </button>
+                    </button>}
+                    
                 </div>
                 <CardGrid cards={cards} />
             </div>

@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Navbar from '../components/navbar/Navbar';
 import NvRes from '../components/navbar/NvRes';
 import Footer from '../components/footer/Footer';
 import { useNavigate } from 'react-router-dom';
 import './layout.css';
 import Swal from 'sweetalert2';
+import GlobalContext from '../store/Context';
 
 function Layout({ children }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {globalState, setGlobalState} = useContext(GlobalContext);
+  
   const navigate = useNavigate();
   useEffect(() => {
     const handleResize = () => {
@@ -25,14 +28,18 @@ function Layout({ children }) {
   const handleLogin = () => {
     const clientId = '1218718388809891841';
     const redirectUri = encodeURIComponent('http://localhost:5173/principal');
-    const scope = encodeURIComponent('identify guilds');
-    const authorizationUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fprincipal&scope=guilds+identify`;
+    const scope = encodeURIComponent('identify guilds guilds.members.read');
+    const authorizationUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fprincipal&scope=guilds+identify+guilds.members.read`;
     window.location.href = authorizationUrl;
   };
 
   const handleLogout = () => {
     sessionStorage.clear();
-    setIsLoggedIn(false);
+    //setIsLoggedIn(false);
+    setGlobalState({
+      ...globalState,
+      isLoggedIn: false
+    })
     navigate('/', { replace: true });
     Swal.fire({
       icon: 'success',
@@ -50,24 +57,43 @@ function Layout({ children }) {
       let options = {
         method: 'GET'
       }
+      setGlobalState({
+        isLoggedIn: true,
+        userData: {
+          username: 'prueba'
+        }
+      })
       try{
+       
+        console.log(globalState)
         const data = await fetch('https://codequest2024back.onrender.com/api/auth/discord?code=' + code, options);
+        console.log(data)
+        console.log(await data.json())
         if(data.status == "200"){
           const response = await data.json(); 
-          setData(response);
-          setIsLoggedIn(true);
+      
+          // setData(response);
+          // setIsLoggedIn(true);
+          setGlobalState({
+            isLoggedIn: true,
+            userData: response
+          })
           sessionStorage.setItem("userData", JSON.stringify(response));
         }else{
-          window.location.href = '/';
+          //window.location.href = '/';
         }
       }catch(exception){
         console.log(exception);
-        window.location.href = '/';
+        //window.location.href = '/';
       }
     }
     if(sessionStorage.getItem("userData")){
-      setData(JSON.parse(sessionStorage.getItem("userData")));
-      setIsLoggedIn(true);
+      //setData(JSON.parse(sessionStorage.getItem("userData")));
+      setGlobalState({
+        isLoggedIn: true,
+        userData: JSON.parse(sessionStorage.getItem("userData"))
+      });
+      //setIsLoggedIn(true);
     }else{
       if (window.location.pathname === "/principal") {
         fechtData();
@@ -80,7 +106,7 @@ function Layout({ children }) {
       {windowWidth < 800 ? (
         <NvRes />
       ) : (
-        <Navbar isLoggedIn={isLoggedIn} handleLogout={handleLogout} handleLogin={handleLogin} userData={dataUsuario}/>
+        <Navbar handleLogout={handleLogout} handleLogin={handleLogin}/>
       )}
       <main style={{ minHeight: 'calc((100vh/8)*6)' }} className='main-project'>
         {children}
