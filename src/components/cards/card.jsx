@@ -113,7 +113,6 @@ const Card = ({ card }) => {
           onHide={handleCloseModal}
           nombreSorteo={card.name}
           estado={card.state}
-          participantes={card.giveawaySweeper}
           ganadores={card.number_winners}
           id={card.id_giveaway}
           jugarSorteo={jugarSorteo}

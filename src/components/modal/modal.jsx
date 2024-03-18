@@ -3,9 +3,9 @@ import './modal.css';
 import CustomForm from "../../components/form/form";
 import Swal from 'sweetalert2';
 
-const CustomModal = ({ show, onHide, nombreSorteo, estado, participantes, ganadores, id, jugarSorteo }) => {
-  const [activeTab, setActiveTab] = useState(estado === true ? 'participantes' : 'modificar');
-  const [formData, setFormData] = useState(null);
+const CustomModal = ({ show, onHide, nombreSorteo, estado, ganadores, id, jugarSorteo }) => {
+  const [activeTab, setActiveTab] = useState('modificar');
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     const fetchConcursoData = async () => {
@@ -81,9 +81,10 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, participantes, ganado
         <li className="nav-item" role="presentation">
           <button className={`nav-link ${activeTab === 'eliminar' ? 'active' : ''}`} onClick={() => handleTabClick('eliminar')}>Eliminar Concurso</button>
         </li>
-        <li className="nav-item" role="presentation">
+        {estado === true && <li className="nav-item" role="presentation">
           <button className={`nav-link ${activeTab === 'sorteo' ? 'active' : ''}`} onClick={() => handleTabClick('sorteo')}>Jugar Sorteo</button>
-        </li>
+        </li>}
+
       </>
     );
   };
@@ -91,19 +92,35 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, participantes, ganado
   const renderTabContent = () => {
     return (
       <div className="tab-content" id="myTabContent">
-        {estado === true && (
-          <div className={`tab-pane fade ${activeTab === 'participantes' ? 'show active' : ''}`} id="participantes" role="tabpanel">
-            <ul>
-              {participantes && participantes.length > 0 ? (
-                participantes.map((participante, index) => (
-                  <li key={index}>{participante}</li>
-                ))
-              ) : (
-                <p>Sin participantes aún</p>
-              )}
-            </ul>
-          </div>
-        )}
+
+        <div className={`tab-pane fade ${activeTab === 'participantes' ? 'show active' : ''}`} id="participantes" role="tabpanel">
+          <ul>
+            <table class="table">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Id</th>
+                  <th scope="col">Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                {formData.giveawaySweeper && formData.giveawaySweeper.length > 0 ? (
+
+                  formData.giveawaySweeper.map((participante, index) => (
+                    <tr id={index}>
+                      <th scope='row'><img src={`https://cdn.discordapp.com/avatars/${participante.sweeper.id_discord}/${participante.sweeper.avatar}.jpg`} alt="Person Logo" id="person-logo-in" /></th>
+                      <td>{participante.sweeper.id_discord}</td>
+                      <td>{participante.sweeper.username}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <p>Sin participantes aún</p>
+                )}
+              </tbody>
+            </table>
+          </ul>
+        </div>
+
         <div className={`tab-pane fade ${activeTab === 'modificar' ? 'show active' : ''}`} id="modificar" role="tabpanel">
           {formData && <CustomForm readOnlyProp={false} concursos={formData} mode="Modify" onSubmit={actualizarConcurso} />}
         </div>
