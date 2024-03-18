@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import CustomModal from '../modal/modal';
+import GlobalContext from '../../store/Context';
 // import FormularioAgregar from '../formularioAgregar/formularioAgregar'; // Importa el componente de formulario agregar
 
 const Card = ({ card }) => {
   const [modalShow, setModalShow] = useState(false);
   const [isAgregarCard, setIsAgregarCard] = useState(card.name === 'Agregar');
+  const { globalState } = useContext(GlobalContext);
 
   const handleCardClick = () => {
     setModalShow(true);
@@ -22,6 +24,48 @@ const Card = ({ card }) => {
     console.log('Jugar sorteo');
   };
 
+  const register = async (id_giveaway) => {
+    console.log('Registrandome')
+    response = await fetch('https://codequest2024back.onrender.com/api/sweeper', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id_discord: globalState.userData.id,
+        username: globalState.userData.username,
+        avatar: globalState.userData.avatar
+      })
+    });
+    if (response.ok) {
+      const responseData = await response.json();
+      const swepper_response = await fetch('https://codequest2024back.onrender.com/api/giveaway-sweeper', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          fk_id_giveaway: id_giveaway,
+          fk_id_sweeper: responseData.id_sweeper
+        })
+      });
+      if (swepper_response.ok) {
+        const responseData = await response.json();
+        Swal.fire('¡Éxito!', 'El giveaway se creó correctamente', 'success');
+      } else {
+        // Mostrar mensaje de error si la respuesta no es exitosa
+        Swal.fire('Error', 'Hubo un problema al crear el sweeper', 'error');
+      }
+    } else {
+      // Mostrar mensaje de error si la respuesta no es exitosa
+      Swal.fire('Error', 'Hubo un problema al crear el sweeper', 'error');
+    }
+
+    // Imprimir el contenido del objeto JSON devuelto por response.json()
+    const responseData = await response.json();
+    console.log(responseData);
+  }
+
   return (
     <>
       <div className="col-md-4 mb-3" onClick={handleCardClick}>
@@ -35,6 +79,7 @@ const Card = ({ card }) => {
             <p className="card-text">{card.FechaInicio}</p>
             <p className="card-text">{card.FechaFin}</p>
           </div>
+          {(globalState.userData && Object.keys(globalState.userData).length > 4) && <button onClick={() => {register(card.id_giveaway)}}>Register</button>}
         </div>
       </div>
       {modalShow && (

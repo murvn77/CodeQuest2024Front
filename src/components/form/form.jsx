@@ -65,21 +65,21 @@ const CustomForm = (props) => {
                     <form className="needs-validation" noValidate>
                         <div id="reactSignUpForm" className="px-2">
                             <div className="mb-3">
-                                <label htmlFor="name" className="form-label">Name</label>
+                                <label htmlFor="name" className="form-label">Nombre</label>
                                 <input type="text" className="form-control" id="title" onChange={handleInput} readOnly={readOnlyProp} value={data.title} required />
                                 <div className="invalid-feedback">
-                                    Fill out this field
+                                    Completa este campo
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="description" className="form-label">Description</label>
+                                <label htmlFor="description" className="form-label">Descripción</label>
                                 <textarea className="form-control" id="description" rows="3" onChange={handleInput} readOnly={readOnlyProp} value={data.description} required></textarea>
                                 <div className="invalid-feedback">
-                                    Fill out this field
+                                    Completa este campo
                                 </div>
                             </div>
                             {!readOnlyProp && <div className="mb-3">
-                                <label htmlFor="avatar" className="form-label">Image</label>
+                                <label htmlFor="avatar" className="form-label">Imagen</label>
                                 <input className="form-control" type="file" id="image" name="avatar" accept="image/png, image/jpeg, image/gif" onChange={handleImageInput} readOnly={readOnlyProp} />
                             </div>}
                             {data.image && <div className="mb-3">
@@ -87,22 +87,22 @@ const CustomForm = (props) => {
                             </div>}
 
                             <div className="mb-3">
-                                <label htmlFor="start_date" className="form-label">Start date</label>
+                                <label htmlFor="start_date" className="form-label">Fecha de inicio</label>
                                 <input className="form-control" type="date" id="start_date" onChange={handleInput} readOnly={readOnlyProp} value={data.start_date} required />
                                 <div className="invalid-feedback">
-                                    Fill out this field
+                                    Completa este campo
                                 </div>
-                                <label htmlFor="finish_date" className="form-label">Finish date</label>
+                                <label htmlFor="finish_date" className="form-label">Fecha de fin</label>
                                 <input className="form-control" type="date" min={data.start_date} id='finish_date' onChange={handleInput} readOnly={readOnlyProp} value={data.finish_date} required />
                                 <div className="invalid-feedback">
-                                    Fill out this field
+                                    Completa este campo
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="description" className="form-label">Number of winners</label>
                                 <input className="form-control" type="number" min={1} id='winners' onChange={handleInput} readOnly={readOnlyProp} value={data.winners} required />
                                 <div className="invalid-feedback">
-                                    Fill out this field
+                                    Completa este campo
                                 </div>
                             </div>
                             <div className="mb-3">
@@ -114,7 +114,7 @@ const CustomForm = (props) => {
                             </div>
                         </div>
 
-                        {!readOnlyProp && <button type="submit" className="btn btn-success" onClick={sendData}>Create</button>}
+                        {!readOnlyProp && <button type="submit" className="btn btn-success" onClick={sendData}>Crear</button>}
                     </form>
 
                 </fieldset>
