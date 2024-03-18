@@ -44,6 +44,8 @@ function Layout({ children }) {
       icon: 'success',
       title: '¡Logout!',
       text: 'Cierre de sesión existoso.',
+    }).then(() => {
+      window.location.href = '/';
     });
   };
 
