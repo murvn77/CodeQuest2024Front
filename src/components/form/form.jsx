@@ -4,19 +4,25 @@ import Swal from 'sweetalert2';
 
 const CustomForm = (props) => {
     const readOnlyProp = props.readOnlyProp;
-    var initial_data = {
-        initial_date: '',
-        finish_date: '',
-        name: '',
-        description: '',
-        image: '',
-        state: false,
-        number_winners: 1
-    }
-    if (props.data) {
-        initial_data = props.data;
-    }
-    const [data, setData] = useState(initial_data);
+    const [data, setData] = useState({});
+    useEffect(() => {
+        var initial_data = {
+            initial_date: '',
+            finish_date: '',
+            name: '',
+            description: '',
+            image: '',
+            state: false,
+            number_winners: 1
+        }
+        if (props.data) {
+            initial_data = props.data;
+            setData(props.data)
+        }
+        console.log(initial_data)
+        setData(initial_data)
+    }, [props])
+    
 
     const handleInput = (e) => {
         let input = e.target.id;
