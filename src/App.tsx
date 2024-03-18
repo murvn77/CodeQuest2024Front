@@ -12,7 +12,6 @@ const App = () => {
         <Routes>
         <Route exact path="/" Component={Home} />
         <Route path="/principal" Component={Principal}/>
-        <Route path="/authCallback" Component={Principal}/>
         </Routes>
       </Layout>
     </Router>
