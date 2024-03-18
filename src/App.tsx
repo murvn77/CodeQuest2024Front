@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from './layout/layout';
 import Principal from './pages/principal/principal';
@@ -15,8 +15,8 @@ const App = () => {
       <Router>
         <Layout>
           <Routes>
-            <Route path="/" Component={Principal} />
-            <Route path="/principal" Component={Principal} />
+            <Route path="/" element={<Principal />} />
+            <Route path="/principal" element={<Principal />} />
           </Routes>
         </Layout>
       </Router>

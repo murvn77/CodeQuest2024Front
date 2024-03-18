@@ -9,9 +9,8 @@ import GlobalContext from '../store/Context';
 
 function Layout({ children }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  //const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const {globalState, setGlobalState} = useContext(GlobalContext);
-  
+  const { globalState, setGlobalState } = useContext(GlobalContext);
+
   const navigate = useNavigate();
   useEffect(() => {
     const handleResize = () => {
@@ -27,15 +26,14 @@ function Layout({ children }) {
 
   const handleLogin = () => {
     const clientId = '1218718388809891841';
-    const redirectUri = encodeURIComponent('http://localhost:5173/principal');
+    const redirectUri = encodeURIComponent('https://codequest2024front.onrender.com/principal');
     const scope = encodeURIComponent('identify guilds guilds.members.read');
-    const authorizationUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fprincipal&scope=guilds+identify+guilds.members.read`;
+    const authorizationUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=https://codequest2024front.onrender.com/principal&scope=guilds+identify+guilds.members.read`;
     window.location.href = authorizationUrl;
   };
 
   const handleLogout = () => {
     sessionStorage.clear();
-    //setIsLoggedIn(false);
     setGlobalState({
       ...globalState,
       isLoggedIn: false
@@ -63,42 +61,32 @@ function Layout({ children }) {
           username: 'prueba'
         }
       })
-      try{
-       
-        console.log(globalState)
+      try {
         const data = await fetch('https://codequest2024back.onrender.com/api/auth/discord?code=' + code, options);
-        console.log(data)
         console.log(await data.json())
-        if(data.status == "200"){
-          const response = await data.json(); 
-      
+        if (data.status == "200") {
+          const response = await data.json();
+
           // setData(response);
           // setIsLoggedIn(true);
           setGlobalState({
             isLoggedIn: true,
             userData: response
           })
-          sessionStorage.setItem("userData", JSON.stringify(response));
-        }else{
+          //sessionStorage.setItem("userData", JSON.stringify(response));
+        } else {
           //window.location.href = '/';
         }
-      }catch(exception){
+      } catch (exception) {
         console.log(exception);
         //window.location.href = '/';
       }
     }
-    if(sessionStorage.getItem("userData")){
-      //setData(JSON.parse(sessionStorage.getItem("userData")));
-      setGlobalState({
-        isLoggedIn: true,
-        userData: JSON.parse(sessionStorage.getItem("userData"))
-      });
-      //setIsLoggedIn(true);
-    }else{
-      if (window.location.pathname === "/principal") {
-        fechtData();
-      }
+
+    if (window.location.pathname === "/principal") {
+      fechtData();
     }
+
   }, []);
 
   return (
@@ -106,7 +94,7 @@ function Layout({ children }) {
       {windowWidth < 800 ? (
         <NvRes />
       ) : (
-        <Navbar handleLogout={handleLogout} handleLogin={handleLogin}/>
+        <Navbar handleLogout={handleLogout} handleLogin={handleLogin} />
       )}
       <main style={{ minHeight: 'calc((100vh/8)*6)' }} className='main-project'>
         {children}
