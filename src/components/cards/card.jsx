@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CustomModal from '../modal/modal';
+import './card.css';
 // import FormularioAgregar from '../formularioAgregar/formularioAgregar'; // Importa el componente de formulario agregar
 
 const Card = ({ card }) => {
@@ -25,15 +26,15 @@ const Card = ({ card }) => {
   return (
     <>
       <div className="col-md-4 mb-3" onClick={handleCardClick}>
-        <div className="card h-100 rounded-1" style={{ background: '#0f0a1e', minWidth: '200px', minHeight: '250px', maxHeight: '400px' }}>
-          <img src={card.image} className="card-img-top" alt={card.name} style={{ objectFit: 'fill', height: '60%' }} />
-          <div className="card-body text-white" style={{ overflowY: 'auto' }}>
+        <div className="tarjeta card h-100 rounded-1" style={{ background: '#0f0a1e', minWidth: '200px', minHeight: '250px', maxHeight: '400px'}} >
+          <img src={card.image} className="card-img-top" alt={card.name} style={{ objectFit: 'fill', height: '60%'}} />
+          <div className="card-body text-white " style={{ overflowY: 'auto' }}>
             <h5 className="card-title" style={{ fontWeight: '600' }}>{card.name}</h5>
             <div style={{ maxHeight: '100px', overflowY: 'auto' }}>
               <p className="card-text">{card.description}</p>
             </div>
-            <p className="card-text">{card.FechaInicio}</p>
-            <p className="card-text">{card.FechaFin}</p>
+            <p className="card-text">{card.initial_date}</p>
+            <p className="card-text">{card.finish_date}</p>
           </div>
         </div>
       </div>
@@ -41,10 +42,10 @@ const Card = ({ card }) => {
         <CustomModal
           onHide={handleCloseModal}
           nombreSorteo={card.name}
-          estado={card.estado}
-          participantes={card.participantes}
-          ganadores={card.ganadores}
-          eliminarConcurso={eliminarConcurso}
+          estado={card.state}
+          participantes={card.giveawaySweeper}
+          ganadores={card.number_winners}
+          id={card.id_giveaway}
           jugarSorteo={jugarSorteo}
           isAgregarCard={isAgregarCard} // pasa el estado de isAgregarCard al modal
         />

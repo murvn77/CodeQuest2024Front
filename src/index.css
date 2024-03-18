@@ -22,6 +22,28 @@ input, textarea,.form-check-input, .form-control[type=file]:not(:disabled):not([
 input:active, textarea:active,.form-check-input:active, .form-control[type=file]:not(:disabled):not([readonly]):active, button:active,[type=button]:not(:disabled):active, [type=reset]:not(:disabled):active, [type=submit]:not(:disabled):active, button:not(:disabled):active, a:active, a img:active, a svg path:active, button img:active {
   cursor: url('./assets/icons/click2 (2).png') 15 15, auto;
 }
+
+/* Estilos para la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 5px; /* Ancho de la barra */
+}
+
+/* Estilo del riel de la barra de desplazamiento */
+::-webkit-scrollbar-track {
+  background-color: transparent; /* Color del riel */
+}
+
+/* Estilo del pulgar de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+  background-color: #0f0a1e; /* Color del pulgar */
+  border-radius: 5px; /* Radio de borde del pulgar */
+}
+
+/* Cambiar el color cuando se pasa el ratón sobre la barra */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2c2547; /* Color del pulgar al pasar el ratón */
+}
+/* modal.css */
 *{
   font-family:'Raleway', 'sans-serif';
 }
