@@ -1,0 +1,41 @@
+/* CustomModal.css */
+.modal {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-dialog {
+    max-width: 90%;
+  }
+  
+  .modal-content {
+    width: 100%;
+    max-width: 800px; /* Ancho máximo del modal */
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Sombra para hacerlo más prominente */
+  }
+  
+  .modal-header {
+    padding: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    background-color: #f8f9fa; /* Color de fondo del encabezado */
+  }
+  
+  .modal-title {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .modal-body {
+    padding: 15px;
+  }
+  
+  .btn-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+  }
+  

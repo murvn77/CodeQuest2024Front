@@ -83,15 +83,15 @@ const Navbar = () => {
 
   useEffect(() => {
     const loggedInUserString = sessionStorage.getItem('userData');
-
-
     if (!loggedInUserString) {
       setIsLoggedIn(false);
       setUserName('');
     } else {
       const loggedInUser = JSON.parse(loggedInUserString);
       setIsLoggedIn(true);
-      setUserName(loggedInUser.name);
+      console.log("esta es:")
+      console.log(loggedInUser);
+      setUserName(loggedInUser.username);
     }
 
   }, [sessionStorage.getItem('userData')]);
@@ -132,7 +132,7 @@ const Navbar = () => {
         ) : (
           <>
             <div className="user-info">
-              <span>{userName}</span>
+              <span>Bienvenido {userName}</span>
             </div>
             <button onClick={handleLogout}>
               <img src={`https://cdn.discordapp.com/avatars/${dataUsuario.id}/${dataUsuario.avatar}.jpg`} alt="Person Logo" id="person-logo-in" />

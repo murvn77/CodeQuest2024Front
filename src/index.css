@@ -22,3 +22,6 @@ input, textarea,.form-check-input, .form-control[type=file]:not(:disabled):not([
 input:active, textarea:active,.form-check-input:active, .form-control[type=file]:not(:disabled):not([readonly]):active, button:active,[type=button]:not(:disabled):active, [type=reset]:not(:disabled):active, [type=submit]:not(:disabled):active, button:not(:disabled):active, a:active, a img:active, a svg path:active, button img:active {
   cursor: url('./assets/icons/click2 (2).png') 15 15, auto;
 }
+*{
+  font-family:'Raleway', 'sans-serif';
+}
