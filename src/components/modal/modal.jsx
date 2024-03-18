@@ -3,9 +3,9 @@ import './modal.css';
 import CustomForm from "../../components/form/form";
 import Swal from 'sweetalert2';
 
-const CustomModal = ({ show, onHide, nombreSorteo, estado, participantes, ganadores, id, jugarSorteo }) => {
-  const [activeTab, setActiveTab] = useState(estado === true ? 'participantes' : 'modificar');
-  const [formData, setFormData] = useState(null);
+const CustomModal = ({ show, onHide, nombreSorteo, estado, ganadores, id, jugarSorteo }) => {
+  const [activeTab, setActiveTab] = useState('modificar');
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     const fetchConcursoData = async () => {
@@ -13,6 +13,7 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, participantes, ganado
         const response = await fetch(`https://codequest2024back.onrender.com/api/giveaway/${id}`);
         if (response.ok) {
           const data = await response.json();
+          console.log(data)
           setFormData(data);
         } else {
           Swal.fire('Error', 'Hubo un problema al obtener los datos del concurso', 'error');
@@ -83,9 +84,10 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, participantes, ganado
         <li className="nav-item" role="presentation">
           <button className={`nav-link ${activeTab === 'eliminar' ? 'active' : ''}`} onClick={() => handleTabClick('eliminar')}>Eliminar Concurso</button>
         </li>
-        <li className="nav-item" role="presentation">
+        {estado === true && <li className="nav-item" role="presentation">
           <button className={`nav-link ${activeTab === 'sorteo' ? 'active' : ''}`} onClick={() => handleTabClick('sorteo')}>Jugar Sorteo</button>
-        </li>
+        </li>}
+
       </>
     );
   };
@@ -93,19 +95,36 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, participantes, ganado
   const renderTabContent = () => {
     return (
       <div className="tab-content" id="myTabContent">
-        {estado === true && (
-          <div className={`tab-pane fade ${activeTab === 'participantes' ? 'show active' : ''}`} id="participantes" role="tabpanel">
-            <ul>
-              {participantes && participantes.length > 0 ? (
-                participantes.map((participante, index) => (
-                  <li key={index}>{participante}</li>
-                ))
-              ) : (
-                <p>Sin participantes aún</p>
-              )}
-            </ul>
-          </div>
-        )}
+
+        <div className={`tab-pane fade ${activeTab === 'participantes' ? 'show active' : ''}`} id="participantes" role="tabpanel">
+          <ul>
+            <table className="table">
+              <thead className="table-dark">
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Id</th>
+                  <th scope="col">Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                {formData.giveawaySweeper && formData.giveawaySweeper.length > 0 && (
+
+                  formData.giveawaySweeper.map((participante, index) => (
+                    <tr key={index} className={participante.winner && 'winner'}>
+                      <th scope='row'><img src={`https://cdn.discordapp.com/avatars/${participante.sweeper.id_discord}/${participante.sweeper.avatar}.jpg`} alt="Person Logo" id="person-logo-in" /></th>
+                      <td>{participante.sweeper.id_discord}</td>
+                      <td>{participante.sweeper.username}</td>
+                    </tr>
+                  ))
+                ) 
+                  
+                }
+              </tbody>
+            </table>
+            {(!formData.giveawaySweeper || formData.giveawaySweeper.length < 1) && <p>Sin participantes aún</p>}
+          </ul>
+        </div>
+
         <div className={`tab-pane fade ${activeTab === 'modificar' ? 'show active' : ''}`} id="modificar" role="tabpanel">
           {formData && <CustomForm readOnlyProp={false} data={formData} mode="Modificar" onSubmit={actualizarConcurso} />}
         </div>
