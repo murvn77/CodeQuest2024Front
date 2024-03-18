@@ -1,16 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import CustomModal from '../modal/modal';
 import GlobalContext from '../../store/Context';
 import './card.css';
-// import FormularioAgregar from '../formularioAgregar/formularioAgregar'; // Importa el componente de formulario agregar
+import Swal from 'sweetalert2';
 
 const Card = ({ card }) => {
   const [modalShow, setModalShow] = useState(false);
   const [isAgregarCard, setIsAgregarCard] = useState(card.name === 'Agregar');
   const { globalState } = useContext(GlobalContext);
+  const [giveaways, setGiveaways] = useState([]);
+  const [countRegisters, setCountRegisters] = useState(0);
 
   const handleCardClick = () => {
-    setModalShow(true);
+    if (globalState.userData && Object.keys(globalState.userData).length == 4) {
+      setModalShow(true);
+    }
   };
 
   const handleCloseModal = () => {
@@ -25,9 +29,31 @@ const Card = ({ card }) => {
     console.log('Jugar sorteo');
   };
 
+  useEffect(() => {
+    async function fetchData() {
+      if (globalState.isLoggedIn) {
+        const sweeper = await fetch('https://codequest2024back.onrender.com/api/sweeper/idDiscord/' + globalState.userData.id, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const response = await sweeper.json();
+        setGiveaways(response.giveawaySweeper.map((giveaway) => giveaway.giveaway));
+      }
+    }
+    fetchData();
+  }, [countRegisters])
+
   const register = async (id_giveaway) => {
-    console.log('Registrandome')
-    response = await fetch('https://codequest2024back.onrender.com/api/sweeper', {
+    const giveaway = await fetch('https://codequest2024back.onrender.com/api/giveaway/' + id_giveaway, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log(await giveaway.json())
+    const response = await fetch('https://codequest2024back.onrender.com/api/sweeper', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -47,31 +73,29 @@ const Card = ({ card }) => {
         },
         body: JSON.stringify({
           fk_id_giveaway: id_giveaway,
-          fk_id_sweeper: responseData.id_sweeper
+          fk_id_sweeper: responseData.id_sweeper,
+          winner: false
         })
       });
+      console.log(swepper_response)
       if (swepper_response.ok) {
-        const responseData = await response.json();
-        Swal.fire('¡Éxito!', 'El giveaway se creó correctamente', 'success');
+        Swal.fire('¡Éxito!', 'Se registró al sorteo correctamente', 'success');
+        setCountRegisters(countRegisters+1)
       } else {
-        // Mostrar mensaje de error si la respuesta no es exitosa
         Swal.fire('Error', 'Hubo un problema al crear el sweeper', 'error');
       }
     } else {
-      // Mostrar mensaje de error si la respuesta no es exitosa
       Swal.fire('Error', 'Hubo un problema al crear el sweeper', 'error');
     }
-
-    // Imprimir el contenido del objeto JSON devuelto por response.json()
-    const responseData = await response.json();
-    console.log(responseData);
   }
 
   return (
     <>
+    {console.log(giveaways)}
+    
       <div className="col-md-4 mb-3" onClick={handleCardClick}>
-        <div className="tarjeta card h-100 rounded-1" style={{ background: '#0f0a1e', minWidth: '200px', minHeight: '250px', maxHeight: '400px'}} >
-          <img src={card.image} className="card-img-top" alt={card.name} style={{ objectFit: 'fill', height: '60%'}} />
+        <div className="tarjeta card h-100 rounded-1" style={{ background: '#0f0a1e', minWidth: '200px', minHeight: '250px', maxHeight: '400px' }} >
+          <img src={card.image} className="card-img-top" alt={card.name} style={{ objectFit: 'fill', height: '60%' }} />
           <div className="card-body text-white " style={{ overflowY: 'auto' }}>
             <h5 className="card-title" style={{ fontWeight: '600' }}>{card.name}</h5>
             <div style={{ maxHeight: '100px', overflowY: 'auto' }}>
@@ -80,7 +104,8 @@ const Card = ({ card }) => {
             <p className="card-text">{card.initial_date}</p>
             <p className="card-text">{card.finish_date}</p>
           </div>
-          {(globalState.userData && Object.keys(globalState.userData).length > 4) && <button onClick={() => {register(card.id_giveaway)}}>Register</button>}
+          {/* {(globalState.userData && Object.keys(globalState.userData).length > 4) && <button onClick={() => {register(card.id_giveaway)}}>Register</button>} */}
+          {(globalState.userData && Object.keys(globalState.userData).length > 4 && !giveaways.find((element) => element.id_giveaway == card.id_giveaway)) && <button onClick={() => { register(card.id_giveaway) }} className="btn btn-success">Register</button>}
         </div>
       </div>
       {modalShow && (

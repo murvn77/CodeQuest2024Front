@@ -123,7 +123,7 @@ const CustomForm = (props) => {
         <>
             <div className="col-12 col-sm-9 col-md-5 mt-3 mb-5 mx-auto">
                 <fieldset className="border border-light rounded p-3">
-                   <legend>{props.mode} giveaway</legend>
+                   <legend>{props.mode} sorteo</legend>
                     <form className="needs-validation" noValidate>
                         <div id="reactSignUpForm" className="px-2">
                             <div className="mb-3">
@@ -161,17 +161,17 @@ const CustomForm = (props) => {
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="description" className="form-label">Number of winners</label>
+                                <label htmlFor="description" className="form-label">Cantidad de ganadores</label>
                                 <input className="form-control" type="number" min={1} id='winners' onChange={handleInput} readOnly={readOnlyProp} value={data.winners} required />
                                 <div className="invalid-feedback">
                                     Completa este campo
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="start_date" className="form-label">Giveaway state</label>
+                                <label htmlFor="start_date" className="form-label">Estado de sorteo</label>
                                 <div className="form-check form-switch">
                                     <input className="form-check-input" type="checkbox" id="state" disabled={readOnlyProp} onChange={handleCheckBoxInput} />
-                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Open</label>
+                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Abierto</label>
                                 </div>
                             </div>
                         </div>
