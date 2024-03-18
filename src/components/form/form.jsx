@@ -5,15 +5,15 @@ import Swal from 'sweetalert2';
 const CustomForm = (props) => {
     const readOnlyProp = props.readOnlyProp;
     var initial_data = {
-        start_date: '',
+        initial_date: '',
         finish_date: '',
-        title: '',
+        name: '',
         description: '',
         image: '',
         state: false,
-        winners: 1
+        number_winners: 1
     }
-    if (readOnlyProp && props.data) {
+    if (props.data) {
         initial_data = props.data;
     }
     const [data, setData] = useState(initial_data);
@@ -63,13 +63,13 @@ const CustomForm = (props) => {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            name: data.title, // Cambiado de 'title' a 'name'
+                            name: data.name, // Cambiado de 'name' a 'name'
                             description: data.description,
-                            initial_date: data.start_date,
+                            initial_date: data.initial_date,
                             finish_date: data.finish_date,
                             imagen: data.image, // Cambiado de 'image' a 'imagen'
                             state: data.state,
-                            number_winners: data.winners, // Cambiado de 'winners' a 'number_winners'
+                            number_winners: data.number_winners, // Cambiado de 'number_winners' a 'number_winners'
                             fk_id_administrator: admin
                         })
                     });
@@ -86,20 +86,22 @@ const CustomForm = (props) => {
                     console.log(responseData);
                 } else {
                     // Realizar la petición PUT para actualizar el giveaway
-                    const response = await fetch(`https://codequest2024back.onrender.com/api/giveaway/${props.id}`, {
+                    const response = await fetch(`https://codequest2024back.onrender.com/api/giveaway/${props.data.id_giveaway}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            name: data.title, // Cambiado de 'title' a 'name'
+                            name: data.name, // Cambiado de 'name' a 'name'
                             description: data.description,
-                            initial_date: data.start_date,
+                            initial_date: data.initial_date,
                             finish_date: data.finish_date,
                             imagen: data.image, // Cambiado de 'image' a 'imagen'
                             state: data.state,
-                            number_winners: data.winners, // Cambiado de 'winners' a 'number_winners'
-                            fk_id_administrator: admin
+                            number_winners: data.number_winners, // Cambiado de 'winners' a 'number_winners'
+                            fk_id_administrator: admin,
+                            fechaIngreso: data.initial_date,
+                            fechaSalida: data.finish_date
                         })
                     });
                     if (response.ok) {
@@ -128,7 +130,7 @@ const CustomForm = (props) => {
                         <div id="reactSignUpForm" className="px-2">
                             <div className="mb-3">
                                 <label htmlFor="name" className="form-label">Nombre</label>
-                                <input type="text" className="form-control" id="title" onChange={handleInput} readOnly={readOnlyProp} value={data.title} required />
+                                <input type="text" className="form-control" id="name" onChange={handleInput} readOnly={readOnlyProp} value={data.name} required />
                                 <div className="invalid-feedback">
                                     Completa este campo
                                 </div>
@@ -149,34 +151,34 @@ const CustomForm = (props) => {
                             </div>}
 
                             <div className="mb-3">
-                                <label htmlFor="start_date" className="form-label">Fecha de inicio</label>
-                                <input className="form-control" type="date" id="start_date" onChange={handleInput} readOnly={readOnlyProp} value={data.start_date} required />
+                                <label htmlFor="initial_date" className="form-label">Fecha de inicio</label>
+                                <input className="form-control" type="date" id="initial_date" onChange={handleInput} readOnly={readOnlyProp} value={data.initial_date} required />
                                 <div className="invalid-feedback">
                                     Completa este campo
                                 </div>
                                 <label htmlFor="finish_date" className="form-label">Fecha de fin</label>
-                                <input className="form-control" type="date" min={data.start_date} id='finish_date' onChange={handleInput} readOnly={readOnlyProp} value={data.finish_date} required />
+                                <input className="form-control" type="date" min={data.initial_date} id='finish_date' onChange={handleInput} readOnly={readOnlyProp} value={data.finish_date} required />
                                 <div className="invalid-feedback">
                                     Completa este campo
                                 </div>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="description" className="form-label">Cantidad de ganadores</label>
-                                <input className="form-control" type="number" min={1} id='winners' onChange={handleInput} readOnly={readOnlyProp} value={data.winners} required />
+                                <input className="form-control" type="number" min={1} id='number_winners' onChange={handleInput} readOnly={readOnlyProp} value={data.number_winners} required />
                                 <div className="invalid-feedback">
                                     Completa este campo
                                 </div>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="start_date" className="form-label">Estado de sorteo</label>
+                                <label htmlFor="initial_date" className="form-label">Estado de sorteo</label>
                                 <div className="form-check form-switch">
-                                    <input className="form-check-input" type="checkbox" id="state" disabled={readOnlyProp} onChange={handleCheckBoxInput} />
+                                    <input className="form-check-input" type="checkbox" id="state" disabled={readOnlyProp} value={data.state} onChange={handleCheckBoxInput} />
                                     <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Abierto</label>
                                 </div>
                             </div>
                         </div>
 
-                        {!readOnlyProp && <button type="submit" className="btn btn-success" onClick={sendData}>Crear</button>}
+                        {!readOnlyProp && <button type="submit" className="btn btn-success" onClick={sendData}>Enviar</button>}
                     </form>
 
                 </fieldset>

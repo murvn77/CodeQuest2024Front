@@ -40,6 +40,8 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, participantes, ganado
       if (response.ok) {
         Swal.fire('¡Éxito!', 'El concurso se eliminó correctamente', 'success');
         onHide();
+        const responseData = await response.json();
+        console.log(responseData);
       } else {
         Swal.fire('Error', 'Hubo un problema al eliminar el concurso', 'error');
       }
@@ -105,7 +107,7 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, participantes, ganado
           </div>
         )}
         <div className={`tab-pane fade ${activeTab === 'modificar' ? 'show active' : ''}`} id="modificar" role="tabpanel">
-          {formData && <CustomForm readOnlyProp={false} concursos={formData} mode="Modify" onSubmit={actualizarConcurso} />}
+          {formData && <CustomForm readOnlyProp={false} data={formData} mode="Modificar" onSubmit={actualizarConcurso} />}
         </div>
         <div className={`tab-pane fade ${activeTab === 'eliminar' ? 'show active' : ''}`} id="eliminar" role="tabpanel">
           <button className="btn btn-danger" onClick={eliminarConcurso}>Eliminar</button>
