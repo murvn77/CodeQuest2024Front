@@ -8,7 +8,7 @@ import GlobalContext from "../../store/Context";
 const Principal = () => {
     const [modalShow, setModalShow] = useState(false);
     const [concursos, setConcursos] = useState([]);
-
+    const {globalState, setGlobalState} = useContext(GlobalContext)
     // Función para obtener los datos de los concursos
     const fetchConcursos = async () => {
         try {
