@@ -67,7 +67,7 @@ const CustomForm = (props) => {
                 console.log(globalState)
                 if (props.mode === "Create") {
                     // Realizar la petición POST para crear un nuevo giveaway
-                    const response = await fetch('https://codequest2024back.onrender.com/api/giveaway', {
+                    const response = await fetch('https://codequest2024backend.onrender.com/api/giveaway', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ const CustomForm = (props) => {
                     console.log(responseData);
                 } else {
                     // Realizar la petición PUT para actualizar el giveaway
-                    const response = await fetch(`https://codequest2024back.onrender.com/api/giveaway/${props.data.id_giveaway}`, {
+                    const response = await fetch(`https://codequest2024backend.onrender.com/api/giveaway/${props.data.id_giveaway}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json'

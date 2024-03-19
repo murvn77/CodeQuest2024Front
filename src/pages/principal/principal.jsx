@@ -12,7 +12,7 @@ const Principal = () => {
     // Función para obtener los datos de los concursos
     const fetchConcursos = async () => {
         try {
-            const response = await fetch('https://codequest2024back.onrender.com/api/giveaway');
+            const response = await fetch('https://codequest2024backend.onrender.com/api/giveaway');
             if (response.ok) {
                 const data = await response.json();
                 // Para cada concurso, obtener los nombres de los participantes
@@ -34,7 +34,7 @@ const Principal = () => {
     // Función para obtener los nombres de los participantes de un concurso
     const fetchParticipantes = async (concurso) => {
         try {
-            const response = await fetch('https://codequest2024back.onrender.com/api/sweeper');
+            const response = await fetch('https://codequest2024backend.onrender.com/api/sweeper');
             if (response.ok) {
                 const data = await response.json();
                 // Filtrar los nombres de los participantes por los IDs de giveawaySweeper

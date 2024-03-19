@@ -27,7 +27,7 @@ const Card = ({ card, refetch }) => {
   };
 
   const jugarSorteo = async (id_giveaway) => {
-    const sweeper = await fetch('https://codequest2024back.onrender.com/api/giveaway-sweeper/generateWinners/giveaway/' + id_giveaway, {
+    const sweeper = await fetch('https://codequest2024backend.onrender.com/api/giveaway-sweeper/generateWinners/giveaway/' + id_giveaway, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ const Card = ({ card, refetch }) => {
   useEffect(() => {
     async function fetchData() {
       if (globalState.isLoggedIn) {
-        const sweeper = await fetch('https://codequest2024back.onrender.com/api/sweeper/idDiscord/' + globalState.userData.id, {
+        const sweeper = await fetch('https://codequest2024backend.onrender.com/api/sweeper/idDiscord/' + globalState.userData.id, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -65,14 +65,14 @@ const Card = ({ card, refetch }) => {
   }, [countRegisters])
 
   const register = async (id_giveaway) => {
-    const giveaway = await fetch('https://codequest2024back.onrender.com/api/giveaway/' + id_giveaway, {
+    const giveaway = await fetch('https://codequest2024backend.onrender.com/api/giveaway/' + id_giveaway, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
       }
     });
     console.log(await giveaway.json())
-    const response = await fetch('https://codequest2024back.onrender.com/api/sweeper', {
+    const response = await fetch('https://codequest2024backend.onrender.com/api/sweeper', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -85,7 +85,7 @@ const Card = ({ card, refetch }) => {
     });
     if (response.ok) {
       const responseData = await response.json();
-      const swepper_response = await fetch('https://codequest2024back.onrender.com/api/giveaway-sweeper', {
+      const swepper_response = await fetch('https://codequest2024backend.onrender.com/api/giveaway-sweeper', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

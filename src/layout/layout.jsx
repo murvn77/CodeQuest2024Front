@@ -26,9 +26,9 @@ function Layout({ children }) {
 
   const handleLogin = () => {
     const clientId = '1216925942572650566';
-    const redirectUri = encodeURIComponent('https://codequest2024front.onrender.com/principal');
+    const redirectUri = encodeURIComponent('https://codequest2024frontend.onrender.com/principal');
     const scope = encodeURIComponent('identify guilds guilds.members.read');
-    const authorizationUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=https://codequest2024front.onrender.com/principal&scope=guilds+identify+guilds.members.read`;
+    const authorizationUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=https://codequest2024frontend.onrender.com/principal&scope=guilds+identify+guilds.members.read`;
     window.location.href = authorizationUrl;
   };
 
@@ -39,7 +39,7 @@ function Layout({ children }) {
       isLoggedIn: false
     })
     console.log('logged out');
-    navigate('https://codequest2024front.onrender.com', { replace: true });
+    navigate('/', { replace: true });
     Swal.fire({
       icon: 'success',
       title: '¡Logout!',
@@ -58,7 +58,7 @@ function Layout({ children }) {
       }
       
       try {
-        const data = await fetch('https://codequest2024back.onrender.com/api/auth/discord?code=' + code, options);
+        const data = await fetch('https://codequest2024backend.onrender.com/api/auth/discord?code=' + code, options);
         if (data.status == "200") {
           const response = await data.json();
           console.log(response)

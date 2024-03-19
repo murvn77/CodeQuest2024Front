@@ -10,7 +10,7 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, ganadores, id, jugarS
   useEffect(() => {
     const fetchConcursoData = async () => {
       try {
-        const response = await fetch(`https://codequest2024back.onrender.com/api/giveaway/${id}`);
+        const response = await fetch(`https://codequest2024backend.onrender.com/api/giveaway/${id}`);
         if (response.ok) {
           const data = await response.json();
           console.log(data)
@@ -35,7 +35,7 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, ganadores, id, jugarS
 
   const eliminarConcurso = async () => {
     try {
-      const response = await fetch(`https://codequest2024back.onrender.com/api/giveaway/${id}`, {
+      const response = await fetch(`https://codequest2024backend.onrender.com/api/giveaway/${id}`, {
         method: 'DELETE'
       });
       if (response.ok) {
@@ -55,7 +55,7 @@ const CustomModal = ({ show, onHide, nombreSorteo, estado, ganadores, id, jugarS
 
   const actualizarConcurso = async (formData) => {
     try {
-      const response = await fetch(`https://codequest2024back.onrender.com/api/giveaway/${id}`, {
+      const response = await fetch(`https://codequest2024backend.onrender.com/api/giveaway/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
